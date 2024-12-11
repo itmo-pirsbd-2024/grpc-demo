@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package itmo.advancedjava.grpcdemo;
+
+option java_package = "ru.itmo.advancedjava.grpcdemo.proto";
+option java_outer_classname = "GrpcDemoProto";
+option java_multiple_files = true;
+
+service DemoService {
+  rpc GetDudes (GetDudesRequest) returns (GetDudesResponse);
+
+  rpc ServerStreaming (GetDudesRequest) returns (stream GetDudesResponse);
+
+  rpc BiDiStreaming (stream GetDudesRequest) returns (stream GetDudesResponse);
+}
+
+message GetDudesRequest {
+  repeated string names = 1;
+  bool debug = 2;
+}
+
+message GetDudesResponse {
+  repeated Dude dudes = 1;
+}
+
+message Dude {
+  string name = 1;
+  uint32 age = 2;
+}
